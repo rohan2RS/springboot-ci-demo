@@ -30,9 +30,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build Docker Image
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app .
+      working-directory: app
+      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest .
     - name: Push Image to Docker Hub
-      run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app
+      run: docker push  ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
     - name: SSH and Deploy to EC2
       uses: appleboy/ssh-action@v1
       with:
